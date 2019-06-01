@@ -1,0 +1,136 @@
+set mbox_type   = Maildir
+set sendmail    = /usr/bin/msmtp
+
+set from="User Name <username@email.com>"
+
+set sort=threads 
+set sort_aux=reverse-last-date-received
+
+set folder      = "~/.mail/"
+set spoolfile   = "+INBOX"
+
+set header_cache = "/home/user/.mail/.cache/headers"
+set message_cachedir = "/home/user/.mail/.cache/messages"
+
+unset record
+
+source ~/.mail/.mailboxes
+
+#macro index D \
+#    "<save-message>Trash<enter>" \
+#    "move message to the trash"
+
+#macro index S \
+#    "<save-message>/Spam<enter>" \
+#    "mark message as spam"
+
+macro index A \
+    "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
+    "mark all new as read"
+
+macro index O \
+    "<tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter>" \
+    "mark all new as read"
+
+set editor=vim
+
+
+set sidebar_visible
+set sidebar_width = 32
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+color quoted blue default
+
+color error     red             default         # error messages
+color message   white           default         # message  informational messages
+color indicator white           red             # indicator for the "current message"
+color status    white           blue            # status lines in the folder index sed for the mini-help line
+color tree      red             default         # the "tree" display of threads within the folder index
+color search    white           blue            # search matches found with search within the internal pager
+color markers   red             default         # The markers indicate a wrapped line hen showing messages with looong lines
+
+color header default default default
+color normal default default
+color sidebar_new default default
+color sidebar_highlight default blue
+color sidebar_indicator white green
+
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
+
+set sidebar_short_path = yes
+
+set pager_stop = yes
+set pager_context = 5
+set pager_index_lines = 20
+
+macro index P '|git am -s'
+
+bind pager <up> previous-line #scroll inside the message rather than the index
+bind pager <down> next-line
+
+#source ~/.mutt/mutt-diff-colours
+
+#text/html;                      links %s; nametemplate=%s.html
+#text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
+
+set allow_ansi
+
+#source ~/.mail/.autoview
+#set mailcap_path = ~/.mailcap
+#auto_view text/html
+
+#text/html;                      links %s; nametemplate=%s.html
+#text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
+
+auto_view text/html
+auto_view text/x-diff
+auto_view text/x-patch
+
+ignore *                                      # ignore all headers
+unignore from: to: cc: date: subject:         # show only these
+hdr_order from: to: cc: date: subject:        # and in this order
+
+# color body blue default "^diff \-.*"
+# color body blue default "^index [a-f0-9].*"
+# color body blue default "^\-\-\- .*"
+# color body brightgreen default "^[\+]"
+# color body brightgreen default "^[\+][^\+]+.*"
+# color body blue default "^[\+]{3} .*"
+# color body red  default "^\-[^\-]+.*"
+# color body brightblue default "^@@ .*"
+
+color   header      blue default ^From:
+color   header      blue default ^To:
+color   header      brightcyan default ^Reply-To:
+color   header      brightcyan default ^Cc:
+color   header      blue default ^Date:
+color   header      red default ^Subject:
+color   body        brightred default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color   body        brightblue default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+
+# vim: filetype=muttrc
+# #       type       foreground      background   regex
+#color   body       brightgreen	 default      "*"
+color   body       blue          default      "^diff \-.*"
+color   body       blue          default      "^index [a-f0-9].*"
+color   body       blue          default      "^\-\-\- .*"
+color   body       blue          default      "^[\+]{3} .*"
+color   body       green	 default      "^[\+][^\+]+.*"
+color   body       red             default      "^\-[^\-]+.*"
+color   body       magenta         default      "^@@ .*"
+color   body       yellow          default      "^\-\- >8 \-\-$"
+
+color   body       cyan            default      "^Signed-off-by: .*$"
+color   body       cyan            default      "^Acked-by: .*$"
+color   body       cyan            default      "^Reported-by: .*$"
+color   body       cyan            default      "^Tested-by: .*$"
+color   body       cyan            default      "^Reviewed-by: .*$"
+color   body       cyan            default      "^Suggested-by: .*$"
+color   body       cyan            default      "^Cc: .*$"
+
+set date_format="%y-%m-%d %T"
+set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %s"
+
+source ~/.mail/.aliases

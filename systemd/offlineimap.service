@@ -1,0 +1,8 @@
+[Unit]
+Description=OfflineIMAP Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python <OFFLINEIMAP_GIT_REPO_PATH>/offlineimap.py -o -u basic
+User=<USER>

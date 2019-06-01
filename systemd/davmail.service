@@ -1,0 +1,13 @@
+[Unit]
+Description=DavMail gateway service
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=<USER>
+ExecStart=/usr/bin/nohup /<DAVMAIL_GIT_REPO_PATH>/dist/davmail /home/<USER>/.davmail.properties
+TimeoutSec=120
+
+[Install]
+WantedBy=multi-user.target

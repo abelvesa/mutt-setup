@@ -1,0 +1,21 @@
+[general]
+accounts = work
+
+[Account work]
+localrepository = work-local
+remoterepository = work-remote
+postsynchook = ~/mutt/clean_exchange_garbage.sh
+
+
+[Repository work-local]
+type = Maildir
+localfolders = ~/.mail
+
+[Repository work-remote]
+type = IMAP
+maxconnections = 1
+remotehost = localhost
+remoteport = 1143
+remoteuser = username@email.com
+remotepass = password
+ssl=no

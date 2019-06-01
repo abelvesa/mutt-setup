@@ -1,0 +1,8 @@
+text/x-diff; vim -R ; copiousoutput
+text/x-patch; vim -R ; copiousoutput
+application/x-gzip; zcat ; copiousoutput
+application/pgp; cat; copiousoutput
+application/pgp-keys; pgp -f < %s ; copiousoutput
+application/pgp-signature; cat ; copiousoutput
+text/calendar; icalview.py; copiousoutput
+

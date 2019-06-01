@@ -1,0 +1,3 @@
+[Timer]
+OnUnitInactiveSec=60s
+Unit=offlineimap.service
